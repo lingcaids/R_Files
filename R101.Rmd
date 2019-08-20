@@ -24,7 +24,7 @@ df3<-read.table("C:\\DATA SCIENCE\\R KB\\test.txt", header=TRUE, sep = "\t")
 head(df2, 2) #first two rows
 head(df3, 2) #first two rows
 
-# read online data
+# read online data from Github
 df4<-read.csv("https://raw.githubusercontent.com/rpruim/OpenIntro/master/data/cherry.csv")
 head(df4, 2)
 ```
