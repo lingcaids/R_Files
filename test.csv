@@ -1,0 +1,9 @@
+id,name,target
+1,alice,100
+2,bob,200
+3,charles,300
+4,david,400
+5,edward,500
+6,.,600
+7,na,.
+8,,700
