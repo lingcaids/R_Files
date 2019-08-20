@@ -1,0 +1,75 @@
+---
+title: "R 101"
+output:
+  html_document:
+    df_print: paged
+---
+
+This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
+
+Try executing this chunk by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Ctrl+Shift+Enter*. 
+
+```{r 1. Load Data}
+# read Excel file
+# There are many other ways to load Excel file this is just one of them. 
+library(readxl) #you need to have this library installed first. 
+df1<-read_excel("test.xlsx", sheet = 'Sheet4')  # read excel file
+head(df1, 2)
+
+# read .csv file / read .txt file
+df2<-read.table("C:\\DATA SCIENCE\\R KB\\test.csv", header=TRUE) 
+df2<-read.csv("C:\\DATA SCIENCE\\R KB\\test.csv", header=TRUE) 
+df3<-read.table("C:\\DATA SCIENCE\\R KB\\test.txt", header=TRUE, sep = "\t")
+
+head(df2, 2) #first two rows
+head(df3, 2) #first two rows
+
+# read online data
+df4<-read.csv("https://raw.githubusercontent.com/rpruim/OpenIntro/master/data/cherry.csv")
+head(df4, 2)
+```
+```{r 2.1 ggplot2 Aesthetics}
+library(mdsr)
+head(CIACountries, 1)
+g<-ggplot(data = CIACountries, aes(y=gdp, x=educ))
+g+geom_point(size=3)
+g+geom_point(size = 3, aes(color = net_users))
+g+geom_point(aes(color = net_users, size = roadways)) #note the 'size' is inside the aes(). 
+g+geom_text(size=3, aes(label=country, color =net_users))
+```
+```{r 2.2 ggplot2 Scale}
+g<-ggplot(data = CIACountries, aes(y=gdp, x=educ))
+g+geom_point(aes(color=net_users, size = roadways))+ coord_trans(y='log10')
+
+#You can use scale() functions instead
+g+geom_point(aes(color=net_users, size = roadways))+ scale_y_continuous(name='GDP', trans='log10')
+```
+```{r 2.3 ggplot2 Guides}
+# you can use geom_annotates() functions to provide extra information. 
+
+```
+```{r 2.4 ggplot2 Facets}
+# facet_wrap() creates a facet for each level of a singale categorical variable
+# facet_grid() creates a facet for each combination of two categorical variables, arranged in a grid. 
+g<-ggplot(data = CIACountries, aes(y=gdp, x=educ))
+g+geom_point(alpha = 0.9, aes(color=net_users, size = roadways)) +
+             coord_trans(y='log10') + 
+             facet_wrap(~net_users, nrow=1) +
+             theme(legend.position='top')
+g+geom_point(alpha = 0.9, aes(color=net_users, size = roadways)) +
+             coord_trans(y='log10') + 
+            facet_grid(~net_users) +
+             theme(legend.position='top')            
+  
+
+```
+
+```{r}
+
+```
+
+Add a new chunk by clicking the *Insert Chunk* button on the toolbar or by pressing *Ctrl+Alt+I*.
+
+When you save the notebook, an HTML file containing the code and output will be saved alongside it (click the *Preview* button or press *Ctrl+Shift+K* to preview the HTML file).
+
+The preview shows you a rendered HTML copy of the contents of the editor. Consequently, unlike *Knit*, *Preview* does not run any R code chunks. Instead, the output of the chunk when it was last run in the editor is displayed.
