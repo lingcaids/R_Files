@@ -1,0 +1,154 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
+
+Try executing this chunk by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Ctrl+Shift+Enter*. 
+
+```{r}
+x<-c(3,6,8)
+y<-c(2,5,1)
+print(y>1.5)
+print(x[y>1.5])
+print(y[x==6])
+```
+```{r}
+name<-c('a','b','c','d')
+height<-c(1.80, 1.65, 1.60, 1.93)
+weight<-c(87,58, 65, 100)
+BMI = weight/(height^2)
+print(BMI)
+print(BMI[BMI>25], digits=4
+      )
+```
+```{r}
+R<-c(2.27, 1.98, 1.698, 1.88, 1.64, 2.14)
+H<-c(8.28, 8.04, 9.06, 8.70, 7.58, 8.34)
+V=pi*H*(R^2)/3
+print(V)
+mean(V[H<8.5])
+```
+```{r}
+which.max(c(2, 5, 1, 7, 8))
+?which.max
+```
+
+
+```{r}
+library(RCurl)
+cherrylink<-"https://raw.githubusercontent.com/rpruim/OpenIntro/master/data/cherry.csv"
+cherry<-read.csv(cherrylink)
+head(cherry)
+summary(cherry)
+```
+```{r}
+head(cherry, 23)
+plot(cherry)
+
+```
+```{r}
+attach(cherry)
+Diam
+hist(Diam)
+plot(Height, Volume)
+```
+```{r}
+cherry1<-transform(cherry, logVolume=log(Volume), logGirth=log(Diam))
+head(cherry1)
+hist(cherry1$logVolume)
+
+```
+```{r}
+cherry
+cherry[3,] #3rd row
+cherry[3:5,] #3rd-5th row
+cherry[3:5, 2:3] #3rd-5th row, 2nd-3rd col
+cherry[-c(2,4),] # all except rows 2nd-4th
+```
+
+```{r}
+subset(cherry, Height>70)
+subset(cherry, Height==80, select=c(Diam, Volume, Height))
+```
+
+```{r}
+newData<-data.frame(Diam=c(11.50, 17.00), Height=c(71, 75), Volume = c(22, 40))
+newData
+allData<-rbind(cherry, newData) # union data
+allData
+```
+```{r}
+precipitation<-rnorm(n=33, mean=50, sd=10)
+precipitation
+allData<-cbind(allData, precipitation)
+allData
+
+```
+
+```{r}
+library(readxl)
+tomatoes<-read_excel('tomatoes.xlsx')
+attach(tomatoes)
+head(tomatoes)
+# tail(tomatoes)
+table(variety)
+table(density)
+table(density, variety)
+```
+```{r}
+# ny59<-read.csv('ny-temp.csv', sep=';')
+# head(ny59)
+ny78<-read_excel('ny-temp.xlsx')
+head(ny78)
+
+subset(cherry, Height>70)
+subset(cherry, Height==80, select=c(Diam, Volume, Height))
+
+july<-subset(ny78, Month==7 )
+august<-subset(ny78, Month==8)
+attach(july)
+plot(Day, Temp)
+
+```
+```{r}
+plot(Day, Temp, pch=16)
+plot(Day, Temp, type='l', lty=2)
+plot(Day, Temp, type='l', lwd=2)
+plot(Day, Temp, type='b')
+```
+
+```{r}
+plot(Day, Temp, type='l', col='blue')
+plot(Day, Temp, type='l', xlab='Day in month', ylab='Temp(F)', main='Temp in NY')
+plot(Day, Temp, type='l', cex.lab=1.3)
+plot(Day, Temp, type='l', cex.axis=1.3)
+plot(Day, Temp, type='l', xlim=c(0,40), ylim=c(50,150))
+```
+
+```{r}
+range(july$Temp)
+plot(july$Day, july$Temp, type='l', ylim=c(70,100))
+points(august$Day, august$Temp, col='red')
+
+# lines chart
+plot(july$Day, july$Temp, type='l', ylim=c(70,120))
+lines(august$Day, august$Temp, col='green')
+legend(5, 120, c('july', 'August'), text.col=c('black', 'green')) #add legend
+abline(h=73, col='red')
+abline(v=14, col='blue')
+abline(84.652, -0.0468, col='pink')
+text('regression line', col='pink')
+```
+```{r}
+# 
+```
+
+
+
+Add a new chunk by clicking the *Insert Chunk* button on the toolbar or by pressing *Ctrl+Alt+I*.
+
+When you save the notebook, an HTML file containing the code and output will be saved alongside it (click the *Preview* button or press *Ctrl+Shift+K* to preview the HTML file).
+
+The preview shows you a rendered HTML copy of the contents of the editor. Consequently, unlike *Knit*, *Preview* does not run any R code chunks. Instead, the output of the chunk when it was last run in the editor is displayed.
